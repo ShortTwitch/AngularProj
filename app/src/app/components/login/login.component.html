@@ -1,0 +1,23 @@
+
+<form [formGroup]="loginForm" novalidate>
+
+  <div class="form-group">
+    <label>Enter Username:</label>
+    <input type="text" class="form-control" formControlName="username" required>
+  </div>
+
+  <div class="form-group">
+    <label>Enter Password:</label>
+    <input type="password" class="form-control" formControlName="password" required>
+  </div>
+
+  <div *ngFor="let message of loginForm.messages" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <button type="button" class="close" (click)="loginForm.messages.splice(index, 1)" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+
+  <button type="submit" class="btn btn-primary" (click)="login()" [disabled]="loginForm.pristine">Login</button>
+
+</form>

@@ -1,0 +1,25 @@
+<div id="UserLogin" class="card" style="width: 500px">
+  
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link" (click)="isLogin=true" [ngClass]="{ 'active' : isLogin }">
+          Login
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="isLogin=false" [ngClass]="{ 'active' : !isLogin }">
+          Sign Up
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+  <div *ngIf="isLogin" class="card-block">
+    <app-login></app-login>
+  </div>
+  <div *ngIf="!isLogin" class="card-block">
+    <app-sign-up></app-sign-up>
+  </div>
+
+</div>

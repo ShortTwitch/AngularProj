@@ -1,0 +1,7 @@
+a:hover {
+    cursor: pointer;
+}
+
+a.nav-link:not([active]){
+    color: #0275d8;
+}
