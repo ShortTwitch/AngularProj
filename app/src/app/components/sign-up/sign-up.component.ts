@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { HttpService } from '../../services/http.service';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -27,7 +27,7 @@ export class SignUpComponent implements OnInit {
 
   signUpForm  : FormGroup;
 
-  constructor(private httpService : HttpService, private fb : FormBuilder) { 
+  constructor(private account : AccountService, private fb : FormBuilder) { 
     this.createSignUpForm()
   }
 
@@ -44,7 +44,7 @@ export class SignUpComponent implements OnInit {
       password1: form.get('password').value,
       password2: form.get('confirmPassword').value
     };
-    this.httpService.createAccount(data).subscribe(function(data){
+    this.account.createAccount(data).subscribe(function(data){
       if(data.success){
         form['messages'].push("Account Created.");
       }else{

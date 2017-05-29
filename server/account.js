@@ -126,7 +126,8 @@ accountApp.post('/login', function(req, res){
             return res.send({
                 success: true,
                 token: generateToken(req.body.username),
-                message: 'Login Successful'
+                message: 'Login Successful',
+                accountInfo: { login: true, user: req.body.username }
             });
         }    
         return denyReq(res, 'Invalid username / password');
@@ -152,13 +153,22 @@ accountApp.post('/create', function(req, res){
                 return res.send({
                     success: true,
                     token: generateToken(req.body.username),
-                    message: 'Account successfully created'
+                    message: 'Account successfully created',
+                    accountInfo: { login: true, user: req.body.username }
                 });
             }
         );
     });
 
+});
 
+accountApp.get('/', function(req, res){
+    if(req.jwt) {
+        var token = req.jwt;
+        res.send({ login: true, user: token.name });
+    } else {
+        res.send({ login: false });
+    }
 });
 
 module.exports = accountApp;

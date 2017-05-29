@@ -10,7 +10,9 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HomeComponent } from './components/home/home.component';
 
 import { HttpService } from './services/http.service';
+import { AccountService } from './services/account.service';
 import { ChatComponent } from './components/chat/chat.component';
+import { AccountComponent } from './components/account/account.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { ChatComponent } from './components/chat/chat.component';
     LoginComponent,
     SignUpComponent,
     HomeComponent,
-    ChatComponent
+    ChatComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
@@ -46,10 +49,14 @@ import { ChatComponent } from './components/chat/chat.component';
       {
         path: 'chat',
         component: ChatComponent
+      },
+      {
+        path: 'account',
+        component: AccountComponent
       }
     ])
   ],
-  providers: [HttpService],
+  providers: [HttpService, AccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

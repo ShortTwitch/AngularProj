@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { HttpService } from '../../services/http.service';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-login',
@@ -18,36 +18,30 @@ export class LoginComponent implements OnInit {
     }
   };
 
-  constructor(private httpService : HttpService, private fb : FormBuilder) { 
-    this.createLoginForm()
-  }
-  
   loginForm  : FormGroup;
 
-  ngOnInit() {
-
+  constructor(private account : AccountService, private fb : FormBuilder) { 
+    this.createLoginForm();
   }
 
-  token : any;
+  ngOnInit() { }
 
   login() : void {
     this.onValueChanged();
+    
     let form = this.loginForm;
     if(!form.valid){ return; }
-    let data = {
-      username: form.get('username').value,
-      password: form.get('password').value
-    };
-    let temp123 = this;
-    this.httpService.userLogin(data).subscribe(function(data){
+    
+    let data = { username: form.get('username').value, password: form.get('password').value };
+    
+    this.account.userLogin(data).subscribe(function(data){
       if(data.success){
         form['messages'].push("Login Successful.");
-        localStorage.setItem('jwt', data.token);
       }else{
         form['messages'].push("Login Unsuccessful.");
       }
-      console.log("data: " + JSON.stringify(data));
     });
+
   }
 
   createAccount() : void {
@@ -65,7 +59,7 @@ export class LoginComponent implements OnInit {
 
   onValueChanged(data? : any) {
     if(!this.loginForm) { return; }
-    
+  
     const form = this.loginForm;
     form['messages'] = [];
 
@@ -78,6 +72,7 @@ export class LoginComponent implements OnInit {
         }
       }
     }
+    
   }
 
 }

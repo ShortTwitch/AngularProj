@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Http, Request, Headers, RequestOptions, RequestMethod, URLSearchParams, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Http, Request, Headers, RequestOptions, RequestMethod } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class HttpService {
 
-  constructor(private http : Http) { }
-
   private server_base = 'http://localhost:8081/';
 
-  buildRequest(url : string, data : any) : Request{
+  constructor(private http : Http) { }
+
+  buildRequest(url : string, methodType : RequestMethod, data : any) : Request{
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     
@@ -19,7 +18,7 @@ export class HttpService {
     if(token){ headers.append('Authorization', 'Bearer ' + token); }
 
     let requestOptions = new RequestOptions({
-      method: RequestMethod.Post,
+      method: methodType,
       url: this.server_base + url,
       headers: headers,
       body: JSON.stringify(data)
@@ -27,13 +26,7 @@ export class HttpService {
     return new Request(requestOptions);
   }
 
-  createAccount(accountData : any) : Observable<any>{
-    let req = this.buildRequest('account/create', accountData);
-    return this.http.request(req).map(res => res.json());
-  }
-
-  userLogin(loginData : any) : Observable<any> {
-    let req = this.buildRequest('account/login', loginData);
+  sendRequest(req : Request){
     return this.http.request(req).map(res => res.json());
   }
 
