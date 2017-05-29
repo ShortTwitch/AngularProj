@@ -14,6 +14,9 @@ export class HttpService {
   buildRequest(url : string, data : any) : Request{
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    
+    var token = localStorage.getItem('jwt');
+    if(token){ headers.append('Authorization', 'Bearer ' + token); }
 
     let requestOptions = new RequestOptions({
       method: RequestMethod.Post,

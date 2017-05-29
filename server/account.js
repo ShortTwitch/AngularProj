@@ -5,6 +5,29 @@ var accountApp = express();
 
 // Crypto variables / functions
 var crypto = require('crypto')
+var jwt = require('jsonwebtoken');
+
+var secretKey = "Durango502";
+
+var generateToken = function(username) {
+    var payload = {
+        name: username
+    };
+    var options = {
+        algorithm: 'HS256',
+        expiresIn: '1h'
+    };
+    var token = jwt.sign(payload, secretKey, options);
+    return token;
+};
+
+var parseToken = function(token) {
+    try{
+        return jwt.verify(token, secretKey);
+    } catch(err){
+        console.log("Error decoding token: " + token);
+    }
+};
 
 var generateSalt = function(length){
   return crypto.randomBytes(Math.ceil(length/2))
@@ -102,6 +125,7 @@ accountApp.post('/login', function(req, res){
         if(secure.hash == row.hash){
             return res.send({
                 success: true,
+                token: generateToken(req.body.username),
                 message: 'Login Successful'
             });
         }    
@@ -127,6 +151,7 @@ accountApp.post('/create', function(req, res){
 
                 return res.send({
                     success: true,
+                    token: generateToken(req.body.username),
                     message: 'Account successfully created'
                 });
             }
@@ -134,10 +159,6 @@ accountApp.post('/create', function(req, res){
     });
 
 
-});
-
-accountApp.get('/*', function (req, res){
-    res.send("DEFAULT ACCOUNT APP ROUTE");
 });
 
 module.exports = accountApp;

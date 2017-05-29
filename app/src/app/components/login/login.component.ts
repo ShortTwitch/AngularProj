@@ -28,17 +28,21 @@ export class LoginComponent implements OnInit {
 
   }
 
+  token : any;
+
   login() : void {
     this.onValueChanged();
     let form = this.loginForm;
     if(!form.valid){ return; }
     let data = {
       username: form.get('username').value,
-      password: form.get('password').value,
+      password: form.get('password').value
     };
+    let temp123 = this;
     this.httpService.userLogin(data).subscribe(function(data){
       if(data.success){
         form['messages'].push("Login Successful.");
+        localStorage.setItem('jwt', data.token);
       }else{
         form['messages'].push("Login Unsuccessful.");
       }

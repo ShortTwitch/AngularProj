@@ -1,27 +1,59 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router'
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { HttpService } from './services/http.service';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { HomeComponent } from './components/home/home.component';
+
+import { HttpService } from './services/http.service';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    HomeComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot([
+      {
+        path: '',
+        redirectTo: '/home',
+        pathMatch: 'full'
+      },
+      {
+        path: 'home',
+        component: HomeComponent
+      },
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'signup',
+        component: SignUpComponent
+      },
+      {
+        path: 'chat',
+        component: ChatComponent
+      }
+    ])
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+  
+
+}
