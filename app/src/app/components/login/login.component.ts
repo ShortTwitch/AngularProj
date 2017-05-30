@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   loginForm  : FormGroup;
 
-  constructor(private account : AccountService, private fb : FormBuilder) { 
+  constructor(private account : AccountService, private fb : FormBuilder, private router : Router) { 
     this.createLoginForm();
   }
 
@@ -29,16 +30,19 @@ export class LoginComponent implements OnInit {
   login() : void {
     this.onValueChanged();
     
-    let form = this.loginForm;
-    if(!form.valid){ return; }
+    let lc = this;
+    if(!lc.loginForm.valid){ return; }
     
-    let data = { username: form.get('username').value, password: form.get('password').value };
+    let data = { 
+      username: lc.loginForm.get('username').value, 
+      password: lc.loginForm.get('password').value 
+    };
     
     this.account.userLogin(data).subscribe(function(data){
       if(data.success){
-        form['messages'].push("Login Successful.");
+        lc.router.navigate(['home']);
       }else{
-        form['messages'].push("Login Unsuccessful.");
+        lc.loginForm['messages'].push("Login Unsuccessful.");
       }
     });
 

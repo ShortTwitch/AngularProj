@@ -2,18 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { RequestMethod } from '@angular/http';
 import { Observable } from 'rxjs/Rx'
+import { Account } from '../classes/account';
 
 @Injectable()
 export class AccountService {
 
   constructor(private http : HttpService) { 
-    this.accountInfo = {
-      login : false
-    };
+    this.user = null;
     this.tokenLogin();
   }
 
-  accountInfo : object;
+  user : Account;
 
   logout() : void {
     localStorage.removeItem('jwt');
@@ -25,7 +24,7 @@ export class AccountService {
     let req = this.http.buildRequest('account', RequestMethod.Get, {});
     this.http.sendRequest(req).subscribe(function(data){
       console.log("Token data : "+ JSON.stringify(data));
-      accountService.accountInfo = data;
+      accountService.user = data.account;
     });
   }
 
@@ -41,8 +40,7 @@ export class AccountService {
     res.subscribe(function(data){
       if(data.success){ 
         localStorage.setItem('jwt', data.token); 
-        console.log("Login data : "+ JSON.stringify(data));
-        ac.accountInfo = data.accountInfo;
+        ac.user = data.account
       }
     });
     return res;

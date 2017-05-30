@@ -15,21 +15,20 @@ app.use(function(req, res, next) {
   var auth = req.get('authorization');
   if(auth && auth.startsWith('Bearer')){
     var token = auth.replace('Bearer ', '');
-    var decoded = jwt.verify(token, 'Durango502', function(err, decoded){
-      if(err){
-        console.log("jwt error : " + err);
-      }else{
-        req['jwt'] = decoded;
-      }
-      next();
-    });
-  }else{
-    next();
+    try{
+      req['jwt'] = jwt.verify(token, 'Durango502');
+    }catch(err){
+      console.log("jwt error : " + err);
+    }
   }
+  next();
 });
 
 var account = require('./account');
 app.use('/account', account);
+
+var chat = require('./chat');
+app.use('/chat', chat);
 
 app.listen(8081, function () {
   console.log('Example app listening on port 8081!!')

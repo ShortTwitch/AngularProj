@@ -14,23 +14,23 @@
             <li class="nav-item">
               <a class="nav-link" routerLink="/home">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="account.user">
               <a class="nav-link" routerLink="/chat">Chat</a>
             </li>
           </ul>
 
-          <ul class="navbar-nav" *ngIf="!account.accountInfo.login">
-            <li class="nav-item float-right">
-              <a class="nav-link" routerLink="/signup">Sign Up</a>
-            </li>
+          <ul class="navbar-nav" *ngIf="!account.user">
             <li class="nav-item float-right">
               <a class="nav-link" routerLink="/login">Login</a>
             </li>
+            <li class="nav-item float-right">
+              <a class="nav-link" routerLink="/signup">Sign Up</a>
+            </li>
           </ul>
           
-          <ul class="navbar-nav" *ngIf="account.accountInfo.login">
+          <ul class="navbar-nav" *ngIf="account.user">
             <li class="nav-item float-right">
-              <a class="nav-link" routerLink="/account">Hello {{ account.accountInfo.user }}</a>
+              <a class="nav-link" routerLink="/account">Hello {{ account.user.username }}</a>
             </li>
             <li class="nav-item float-right">
               <a class="nav-link" (click)="account.logout()">Logout</a>
@@ -47,10 +47,6 @@
     <div class="col-md-10 offset-md-1">
       <router-outlet></router-outlet>
     </div>
-  </div>
-
-  <div id="login" class="row">
-    {{ title }} {{ account.accountInfo | json }}
   </div>
 
 </div>

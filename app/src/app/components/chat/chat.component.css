@@ -1,0 +1,12 @@
+#chat_area {
+    height: 650px;
+}
+
+#chat_area .card {
+    width: 100%;
+    overflow-y: auto;
+}
+
+#chat_input {
+    margin-top: 15px;
+}

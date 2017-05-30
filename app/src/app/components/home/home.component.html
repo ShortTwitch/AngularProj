@@ -1,3 +1,8 @@
-<p>
-  home works!
+
+<p *ngIf="!account.user">
+  PLEASE LOGIN TO CHAT
+</p>
+
+<p *ngIf="account.user">
+  HELLO!
 </p>
