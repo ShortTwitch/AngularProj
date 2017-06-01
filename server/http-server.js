@@ -1,5 +1,8 @@
-var express = require('express');
-var app = express();
+'use strict';
+
+let fs = require('fs');
+let express = require('express');
+let app = express();
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -7,7 +10,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-var bodyParser = require('body-parser');
+let bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 var jwt = require('jsonwebtoken');
@@ -30,6 +33,4 @@ app.use('/account', account);
 var chat = require('./chat');
 app.use('/chat', chat);
 
-app.listen(8081, function () {
-  console.log('Example app listening on port 8081!!')
-});
+module.exports = app;
