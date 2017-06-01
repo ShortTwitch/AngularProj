@@ -6,10 +6,10 @@
       Messages
     </div>
     <div class="card-block">
-      <p *ngFor="let message of messages">
-        {{ message.username }} : {{ message.message }}
+      <p *ngFor="let message of chat.messages">
+        {{ message.message }}
       </p>
-      <p *ngIf="messages.length == 0">
+      <p *ngIf="chat.messages.length == 0">
         No Messages To Display
       </p>
     </div>

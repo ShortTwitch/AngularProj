@@ -17,15 +17,10 @@ export class ChatComponent implements OnInit {
 
   constructor(private account : AccountService, private chat : ChatService, private router : Router) { }
 
-  messages : Message[] = [];
-
   ngOnInit() {
     if(!this.account.user) {
-      this.router.navigate(['/home']);
+      //this.router.navigate(['/home']);
     }
-    let c = this;
-    c.getMessages();
-    setInterval(function(){ c.getMessages(); }, 1000);
   }
 
   message : string = '';
@@ -34,15 +29,6 @@ export class ChatComponent implements OnInit {
     if(this.message.length == 0) { return; }
     this.chat.sendMessage(this.message);
     this.message = '';
-    this.getMessages();
-  }
-
-  getMessages() : void {
-    let c = this;
-    c.chat.getMessages().subscribe(function(data){
-      c.messages = data.messages;
-      c.scrollToBottom();
-    });
   }
 
   scrollToBottom(): void {
