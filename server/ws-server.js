@@ -14,7 +14,7 @@ let wss = new WSServer({
       var params = url.parse(info.req.url, true).query;
       var token = params.token
       try{
-        var decoded = jwt.verify(token, 'Durango502');
+        var decoded = jwt.verify(token, 'password123');
         info.req['abc123'] = decoded.name;
         return true;
       }catch(err){

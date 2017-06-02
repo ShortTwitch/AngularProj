@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
   if(auth && auth.startsWith('Bearer')){
     var token = auth.replace('Bearer ', '');
     try{
-      req['jwt'] = jwt.verify(token, 'Durango502');
+      req['jwt'] = jwt.verify(token, 'password123');
     }catch(err){
       console.log("jwt error : " + err);
     }

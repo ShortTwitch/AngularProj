@@ -7,7 +7,7 @@ var accountApp = express();
 var crypto = require('crypto')
 var jwt = require('jsonwebtoken');
 
-var secretKey = "Durango502";
+var secretKey = "password123";
 
 var generateToken = function(username) {
     var payload = {
