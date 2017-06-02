@@ -4,9 +4,17 @@
 
 #chat_area .card {
     width: 100%;
+}
+
+#chat_area .card #messageBlock {
     overflow-y: auto;
+    padding-bottom: 25px;
 }
 
 #chat_input {
     margin-top: 15px;
+}
+
+#messageBlock p {
+    margin-bottom: 5px;
 }

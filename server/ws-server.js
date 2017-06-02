@@ -29,7 +29,6 @@ server.on('request', app);
 
 wss.on('connection', function connection(ws, req) {
     let user = req['abc123'];
-    console.log("User : " + user);
     ws['socket_user'] = user;
 
     // notify everyone when new user joins
