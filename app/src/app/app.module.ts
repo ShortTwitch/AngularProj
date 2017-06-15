@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { HttpService } from './services/http.service';
 import { AccountService } from './services/account.service';
 import { ChatService } from './services/chat.service';
+import { AuthenticationService } from './services/authentication.service';
 
 import { ChatComponent } from './components/chat/chat.component';
 import { AccountComponent } from './components/account/account.component';
@@ -58,7 +59,7 @@ import { AccountComponent } from './components/account/account.component';
       }
     ])
   ],
-  providers: [HttpService, AccountService, ChatService],
+  providers: [HttpService, AccountService, ChatService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

@@ -4,10 +4,15 @@ import { RequestMethod } from '@angular/http';
 import { Observable } from 'rxjs/Rx'
 import { Account } from '../classes/account';
 
+import { Router } from '@angular/router';
+
+import { ChatService } from './chat.service';
+import { AuthenticationService } from './authentication.service';
+
 @Injectable()
 export class AccountService {
 
-  constructor(private http : HttpService) { 
+  constructor(private http : HttpService, private chat : ChatService, private router : Router, private auth : AuthenticationService) { 
     this.user = null;
     this.tokenLogin();
   }
@@ -15,8 +20,10 @@ export class AccountService {
   user : Account;
 
   logout() : void {
-    localStorage.removeItem('jwt');
-    this.tokenLogin();
+    this.auth.removeToken();
+    this.user = null;
+    this.chat.endChat();
+    this.router.navigate(['/home']);
   }
 
   tokenLogin() : void {
@@ -39,7 +46,7 @@ export class AccountService {
     let ac = this;
     res.subscribe(function(data){
       if(data.success){ 
-        localStorage.setItem('jwt', data.token); 
+        ac.auth.setToken(data.token);
         ac.user = data.account
       }
     });

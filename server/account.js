@@ -55,13 +55,14 @@ var getUserCredentials = 'SELECT PassHash as hash, PassSalt as salt from UserTb 
 // Data validation definitions
 // 6 - 20 alphanumerics starting with letter, not ending with underscore, without more than 1 underscore in a row
 var usernameRegex = /^[A-Za-z](?:\w(?!_{2,})){4,18}[A-Za-z0-9]$/;
-// password must be 8 - 50 characters with at least 1 lowercase, 1 uppercase, 1 number, 1 special character
-var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?:.{8,50})$/;
+// password must be 6 - 50 characters with at least 1 letter, 1 number
+var passwordRegex = /^(?=.*[A-Za-z])(?=.*[0-9])(?:.{8,50})$/;
 
 var validateUserCreation = function(res, data){
     var username = data.username;
     var password1 = data.password1;
     var password2 = data.password2;
+    console.log("user : " + username + ", password1 : " + password1 + ", password2 : " + password2);
     if(!(username && password1 && password2)){
         return denyReq(res, 'Request missing username, password, or password confirm');
     }

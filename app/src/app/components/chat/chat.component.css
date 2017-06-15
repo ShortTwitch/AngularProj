@@ -1,8 +1,6 @@
-#chat_area {
-    height: 650px;
-}
 
 #chat_area .card {
+    height: 650px;
     width: 100%;
 }
 
@@ -17,4 +15,9 @@
 
 #messageBlock p {
     margin-bottom: 5px;
+}
+
+#chat_guests .card {
+    height: 650px;
+    width: 100%;
 }

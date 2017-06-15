@@ -3,16 +3,31 @@ import { HttpService } from './http.service';
 import { RequestMethod } from '@angular/http';
 import { Observable } from 'rxjs/Rx'
 
+import { AuthenticationService } from './authentication.service';
+
 @Injectable()
 export class ChatService {
 
   chatSocket : any;
 
-  constructor(private http : HttpService) { }
+  constructor(private http : HttpService, private auth : AuthenticationService) { }
+
+  endChat() : void {
+    if(this.chatSocket){
+      this.chatSocket.close();
+      this.chatSocket = null;
+    }
+  }
 
   startChat(receiveCB: (m: string) => void): void {
 
-    this.chatSocket = new WebSocket('ws://localhost:8081?token=' + localStorage.getItem('jwt'));
+    if(this.chatSocket != null){
+      this.chatSocket.close();
+      this.chatSocket = null;
+    }
+
+    //this.chatSocket = new WebSocket('ws://dsnookproject.com:8081?token=' + this.auth.getToken());
+    this.chatSocket = new WebSocket('ws://localhost:8081?token=' + this.auth.getToken());
 
     this.chatSocket.onopen = function() {
       console.log("SOCKET OPENED");

@@ -16,7 +16,7 @@ export class SignUpComponent implements OnInit {
     },
     'password': {
       'required':   'Password is required.',
-      'pattern':    'Password must be accurate pattern.'
+      'pattern':    'Password must be 6-50 characters with at least 1 letter and 1 number.'
     },
     'confirmPassword': {
       'required':   'Must confirm password.',
@@ -61,11 +61,11 @@ export class SignUpComponent implements OnInit {
       ],
       password: ['', Validators.compose([
         Validators.required,
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?:.{8,50})$/)])
+        Validators.pattern(/^(?=.*[A-Za-z])(?=.*[0-9])(?:.{6,50})$/)])
       ],
       confirmPassword: ['', Validators.compose([
         Validators.required,
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?:.{8,50})$/)])
+        Validators.pattern(/^(?=.*[A-Za-z])(?=.*[0-9])(?:.{6,50})$/)])
       ]
     }, { validator: PasswordValidation.MatchPassword });
     this.signUpForm['messages'] = [];

@@ -1,27 +1,47 @@
 
+<div class="row" id="chat_component">
+  <div class="col-md-10">
 
-<div id="chat_area" class="row">
-  <div class="card">
-    <div class="card-header">
-      Messages
+    <div id="chat_area">
+      <div class="card">
+        <div class="card-header">
+          Messages
+        </div>
+        <div id="messageBlock" class="card-block">
+          <p *ngFor="let message of messages">
+            {{ message }}
+          </p>
+          <p *ngIf="messages.length == 0">
+            No Messages To Display
+          </p>
+        </div>
+      </div>
     </div>
-    <div id="messageBlock" class="card-block">
-      <p *ngFor="let message of messages">
-        {{ message.message }}
-      </p>
-      <p *ngIf="messages.length == 0">
-        No Messages To Display
-      </p>
+
+    <div id="chat_input">
+      <div class="input-group">
+        <input type="text" class="form-control" (keydown.enter)="sendMessage()"
+            placeholder="Enter message" [(ngModel)]="message">
+        <span class="input-group-btn" style="padding-left: 10px">
+          <button class="btn btn-primary" type="submit" (click)="sendMessage()">Send</button>
+        </span>
+      </div>
     </div>
+
   </div>
-</div>
 
-<div id="chat_input" class="row">
-  <div class="input-group">
-    <input type="text" class="form-control" (keydown.enter)="sendMessage()"
-        placeholder="Enter message" [(ngModel)]="message">
-    <span class="input-group-btn" style="padding-left: 10px">
-      <button class="btn btn-primary" type="submit" (click)="sendMessage()">Send</button>
-    </span>
+  <div class="col-md-2">
+      <div id="chat_guests">
+        <div class="card">
+          <div class="card-header">
+            Guests
+          </div>
+          <div class="card-block">
+            <p *ngFor="let guest of guests">
+              {{ guest }}
+            </p>
+          </div>
+        </div>
+      </div>
   </div>
 </div>

@@ -30,11 +30,15 @@ var denyReq = function(res, msg){
 // Route handling
 
 chatApp.use(function(req, res, next){
-    if(!req.jwt){
+    if(!req['jwt-token']){
         return denyReq(res, 'Please login to use chat functionality');
     }
     console.log("Req jwt exists");
     next();
+});
+
+chatApp.get('/hello', function(req, res){
+    res.send("HELLO HOW ARE YOU");
 });
 
 module.exports = chatApp;
